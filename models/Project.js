@@ -40,6 +40,10 @@ const projectSchema = new mongoose.Schema({
         },
     ],
     tags: [String],
+    instagramUrl: {
+        type: String,
+        trim: true,
+    },
     featured: {
         type: Boolean,
         default: false,
