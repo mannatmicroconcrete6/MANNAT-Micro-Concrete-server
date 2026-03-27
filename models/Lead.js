@@ -30,6 +30,12 @@ const leadSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
+    consentStatus: {
+        type: String,
+        default: 'Not Specified'
+    },
+    consentTimestamp: Date,
+    ip: String,
 }, { timestamps: true });
 
 module.exports = mongoose.model('Lead', leadSchema);

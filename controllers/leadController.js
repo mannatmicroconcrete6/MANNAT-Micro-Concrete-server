@@ -12,7 +12,8 @@ exports.createLead = async (req, res) => {
     const useMock = process.env.USE_MOCK_DB === 'true';
 
     try {
-        const { name, mobile, email, city, serviceNeeded, areaSqFt, message, budgetRange } = req.body;
+        const { name, mobile, email, city, serviceNeeded, areaSqFt, message, budgetRange, consentStatus, consentTimestamp } = req.body;
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
         // Validation (Basic)
         if (!name || !mobile) {
@@ -29,6 +30,9 @@ exports.createLead = async (req, res) => {
             areaSqFt,
             message,
             budgetRange,
+            consentStatus,
+            consentTimestamp,
+            ip,
             status: 'New'
         };
 
