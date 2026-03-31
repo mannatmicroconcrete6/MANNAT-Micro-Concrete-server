@@ -21,11 +21,28 @@ app.use(helmet({
             ...helmet.contentSecurityPolicy.getDefaultDirectives(),
             "img-src": ["'self'", "data:", "https://images.unsplash.com", "https://plus.unsplash.com", "https://media.istockphoto.com", "https://th.bing.com", "https://images.adsttc.com"],
             "media-src": ["'self'", "https://player.vimeo.com", "https://*.vimeo.com"],
-            "connect-src": ["'self'", "http://localhost:5000", "https://api.sendgrid.com"]
+            "connect-src": ["'self'", "http://localhost:5000", "https://api.sendgrid.com", "https://www.mannatmicroconcrete.site", "https://mannatmicroconcrete.site", "https://mannat-micro-concrete-client.vercel.app"]
         }
     }
 }));
-app.use(cors());
+const allowedOrigins = [
+  'https://www.mannatmicroconcrete.site',
+  'https://mannatmicroconcrete.site',
+  'https://mannat-micro-concrete-client.vercel.app',
+  'http://localhost:3000',
+  'http://localhost:5000'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS not allowed from: ' + origin));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 
